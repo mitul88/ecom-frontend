@@ -8,7 +8,7 @@ const HomePage = () => {
         className="w-full h-80 bg-no-repeat bg-cover bg-center relative"
         style={{ backgroundImage: 'url("/images/food-home-img.jpg")' }}
       >
-        <div className="z-10 flex flex-col gap-5 min-w-96 md:min-w-56 bg-gray-800 rounded-xl p-3 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <div className="z-10 flex flex-col gap-5 min-w-96 md:min-w-56 bg-gray-700 rounded-xl p-3 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <h3 className="text-md md:text-xl lg:text-3xl text-white text-center font-bold uppercase">
             Delicious food at your doorstep
           </h3>
