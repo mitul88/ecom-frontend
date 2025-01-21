@@ -1,6 +1,7 @@
 import React from "react";
 import Topbar from "../components/Topbar";
 import { Outlet } from "react-router-dom";
+import Footer from "../components/Footer";
 
 const MasterLayout = () => {
   return (
@@ -9,9 +10,7 @@ const MasterLayout = () => {
       <div className="w-full bg-gray-700 pb-5">
         <Outlet />
       </div>
-      <div className="w-full bg-gray-800 p-5 text-center text-white font-bold">
-        Copyright 2024
-      </div>
+      <Footer />
     </div>
   );
 };
