@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import MasterLayout from "./layout/MasterLayout";
 import HomePage from "./screen/HomePage";
+import CartPage from "./screen/CartPage";
 
 export const router = createBrowserRouter([
   {
@@ -18,6 +19,14 @@ export const router = createBrowserRouter([
         element: (
           <Suspense fallback={<h3>Loading...</h3>}>
             <HomePage />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/cart",
+        element: (
+          <Suspense fallback={<h3>Loading...</h3>}>
+            <CartPage />
           </Suspense>
         ),
       },
