@@ -49,5 +49,8 @@ export const router = createBrowserRouter([
         <AuthPage />
       </Suspense>
     ),
+    errorElement: <h2>Error Loading page</h2>,
+    action: (meta) =>
+      import("./screen/AuthPage").then((module) => module.action(meta)),
   },
 ]);
