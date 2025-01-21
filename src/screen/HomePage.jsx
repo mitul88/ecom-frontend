@@ -33,7 +33,7 @@ const HomePage = () => {
       <div className="px-5 md:px-32 lg:px-72 mt-5 md:mt-10">
         <div className="bg-white rounded-lg p-2 md:p-5">
           {data.map((item) => (
-            <ItemCard item={item} />
+            <ItemCard item={item} key={item.id} />
           ))}
         </div>
       </div>
