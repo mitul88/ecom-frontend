@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useMemo } from "react";
 import ItemCard from "../components/ItemCard";
+import { menuItems } from "../mock/menu";
 
 const HomePage = () => {
+  const data = useMemo(() => menuItems, []);
   return (
     <div className="min-h-[calc(100vh-5rem)]">
       <div
@@ -30,9 +32,9 @@ const HomePage = () => {
       {/* menu item show */}
       <div className="px-5 md:px-32 lg:px-72 mt-5 md:mt-10">
         <div className="bg-white rounded-lg p-2 md:p-5">
-          <ItemCard />
-          <ItemCard />
-          <ItemCard />
+          {data.map((item) => (
+            <ItemCard item={item} />
+          ))}
         </div>
       </div>
     </div>
