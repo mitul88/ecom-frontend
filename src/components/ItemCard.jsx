@@ -1,5 +1,5 @@
 import React from "react";
-import { FaPlus } from "react-icons/fa";
+import AddToCartBtn from "../UI/AddToCartBtn";
 
 const ItemCard = () => {
   return (
@@ -17,9 +17,7 @@ const ItemCard = () => {
           </span>
         </div>
         <div>
-          <button className="px-3 py-1 w-20 md:w-32 bg-red-900 text-xs md:text-lg text-white flex gap-3 items-center justify-center rounded-3xl">
-            <FaPlus /> Add
-          </button>
+          <AddToCartBtn />
         </div>
       </div>
       <hr className="w-full border border-gray-400" />
