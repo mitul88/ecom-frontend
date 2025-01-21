@@ -1,5 +1,6 @@
 import React from "react";
 import CartButton from "../UI/CartButton";
+import { Link } from "react-router-dom";
 
 const Topbar = () => {
   return (
@@ -9,6 +10,12 @@ const Topbar = () => {
         <span className="text-white text-xs md:text-sm font-bold">
           Welcome, User
         </span>
+        <Link
+          to="/auth?mode=login"
+          className="px-3 py-1 text-white font-semibold bg-green-600 rounded"
+        >
+          Login
+        </Link>
         <CartButton />
       </div>
     </header>

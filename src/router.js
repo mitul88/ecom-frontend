@@ -4,6 +4,7 @@ import MasterLayout from "./layout/MasterLayout";
 import HomePage from "./screen/HomePage";
 import CartPage from "./screen/CartPage";
 import CheckoutPage from "./screen/CheckoutPage";
+import AuthPage from "./screen/AuthPage";
 
 export const router = createBrowserRouter([
   {
@@ -40,5 +41,13 @@ export const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "/auth",
+    element: (
+      <Suspense fallback={<h3>Loading...</h3>}>
+        <AuthPage />
+      </Suspense>
+    ),
   },
 ]);
