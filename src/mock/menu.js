@@ -2,7 +2,7 @@ export const menuItems = [
   {
     id: "1",
     name: "Hilsha Fry",
-    description: "Our national fish and with eggplant fried",
+    description: "Our national fish and with fried eggplant",
     price: 22.99,
   },
   {
