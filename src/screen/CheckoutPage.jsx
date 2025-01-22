@@ -1,7 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CheckoutSummery from "../components/CheckoutSummery";
 import CartContext from "../store/cart-context";
+import { toast, ToastContainer } from "react-toastify";
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
@@ -14,6 +15,13 @@ const CheckoutPage = () => {
   const totalAmount = `${cartCtx.totalAmount.toFixed(2)}`;
   const items = cartCtx.items;
 
+  const formHandler = (e) => {
+    e.preventDefault();
+    cartCtx.emptyCart();
+    toast.success("Thank you for your order. Meals will be delivered soon.");
+    setTimeout(() => navigate("/"), 6000);
+  };
+
   return (
     <div className="min-h-[calc(100vh-9.25rem)] pt-5">
       <div className="w-96 md:w-1/2 min-h-[calc(100vh-9.5rem)] bg-white p-5 mx-auto flex flex-col justify-between">
@@ -21,7 +29,7 @@ const CheckoutPage = () => {
           Checkout
         </h2>
         {/* top part */}
-        <form action="">
+        <form onSubmit={formHandler}>
           <div className="w-full flex flex-col md:flex-row  gap-5 md:gap-2">
             <div className="w-full md:w-1/2 px-5 flex flex-col justify-center">
               <div className="flex flex-col ">
@@ -97,37 +105,38 @@ const CheckoutPage = () => {
               </div>
             </div>
           </div>
-        </form>
 
-        {/* buttons and total amount */}
-        <div className="bg-gray-100 p-1">
-          <div className="w-full p-2 md:p-3 flex items-center justify-between">
-            <h3 className="text-xs md:text-xl text-red-900 font-bold">
-              Total Amount:
-            </h3>
-            <span className="text-lg md:text-3xl text-red-900 font-bold">
-              ${totalAmount}
-            </span>
-          </div>
-          <div className="w-full flex justify-end my-2">
-            <div className="flex gap-2">
-              <Link
-                to={".."}
-                onClick={(e) => goBack(e)}
-                className="px-2 py-1 text-red-900 border border-red-900 rounded-2xl"
-              >
-                Back
-              </Link>
-              <Link
-                to="/cart/checkout"
-                className="px-2 py-1 bg-green-500 border border-green-500 text-white rounded-2xl"
-              >
-                Order
-              </Link>
+          {/* buttons and total amount */}
+          <div className="bg-gray-100 p-1">
+            <div className="w-full p-2 md:p-3 flex items-center justify-between">
+              <h3 className="text-xs md:text-xl text-red-900 font-bold">
+                Total Amount:
+              </h3>
+              <span className="text-lg md:text-3xl text-red-900 font-bold">
+                ${totalAmount}
+              </span>
+            </div>
+            <div className="w-full flex justify-end my-2">
+              <div className="flex gap-2">
+                <Link
+                  to={".."}
+                  onClick={(e) => goBack(e)}
+                  className="px-2 py-1 text-red-900 border border-red-900 rounded-2xl"
+                >
+                  Back
+                </Link>
+                <button
+                  type="submit"
+                  className="px-2 py-1 bg-green-500 border border-green-500 text-white rounded-2xl"
+                >
+                  Order
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        </form>
       </div>
+      <ToastContainer position="top-center" />
     </div>
   );
 };

@@ -50,6 +50,10 @@ const cartReducer = (state, action) => {
       updatedItems[existingCartItemIndex] = updatedItem;
     }
 
+    if (action.type === "EMPTY") {
+      state.items = [];
+      state.totalAmount = 0;
+    }
     return {
       items: updatedItems,
       totalAmount: Math.abs(updatedTotalAmount),
@@ -77,12 +81,18 @@ const CartProvider = (props) => {
       id: id,
     });
   };
+  const emptyCartHandler = () => {
+    dispatchCartAction({
+      type: "EMPTY",
+    });
+  };
 
   const cartContext = {
     items: cartState.items,
     totalAmount: cartState.totalAmount,
     addItem: addItemToCartHandler,
     removeItem: removeItemToCartHandler,
+    emptyCart: emptyCartHandler,
   };
 
   return (
