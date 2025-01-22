@@ -1,6 +1,7 @@
 import React from "react";
 import AuthForm from "../components/AuthForm";
 import { Link, redirect } from "react-router-dom";
+import { setAccessToken } from "../util/auth";
 
 const AuthPage = () => {
   return (
@@ -61,12 +62,8 @@ export const action = async ({ request }) => {
 
   const resData = await response.json();
   const token = resData.token;
-  console.log(resData);
 
-  localStorage.setItem("token", token);
-  let expiration = new Date();
-  expiration.setHours(expiration.getHours() + 1);
-  localStorage.setItem("expiration", expiration.toISOString());
+  setAccessToken(token);
   window.location.href = "/";
   return;
 };
