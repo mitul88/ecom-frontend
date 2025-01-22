@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CheckoutSummery from "../components/CheckoutSummery";
+import CartContext from "../store/cart-context";
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
@@ -8,6 +9,11 @@ const CheckoutPage = () => {
     e.preventDefault();
     navigate(-1);
   };
+
+  const cartCtx = useContext(CartContext);
+  const totalAmount = `${cartCtx.totalAmount.toFixed(2)}`;
+  const items = cartCtx.items;
+
   return (
     <div className="min-h-[calc(100vh-9.25rem)] pt-5">
       <div className="w-96 md:w-1/2 min-h-[calc(100vh-9.5rem)] bg-white p-5 mx-auto flex flex-col justify-between">
@@ -57,7 +63,7 @@ const CheckoutPage = () => {
               </button>
             </div>
             <div className="w-full md:w-1/2  p-2 bg-gray-100  md:rounded-lg">
-              <CheckoutSummery />
+              <CheckoutSummery items={items} />
             </div>
           </div>
 
@@ -100,7 +106,7 @@ const CheckoutPage = () => {
               Total Amount:
             </h3>
             <span className="text-lg md:text-3xl text-red-900 font-bold">
-              $55.00
+              ${totalAmount}
             </span>
           </div>
           <div className="w-full flex justify-end my-2">
