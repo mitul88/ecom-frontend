@@ -1,7 +1,7 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useRef } from "react";
 import { menuItems } from "../mock/menu";
 import ItemCard from "../components/ItemCard";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   // following fetches data from mock file
@@ -9,6 +9,16 @@ const HomePage = () => {
 
   // fetch data from server
   const loaderData = useLoaderData();
+  const searchInputRef = useRef();
+  const navigate = useNavigate();
+
+  const handleSearchForm = (e) => {
+    e.preventDefault();
+    const search = searchInputRef.current.value;
+    const params = new URLSearchParams({ search: search });
+    navigate(`?${params.toString()}`);
+  };
+
   return (
     <div className="min-h-[calc(100vh-5rem)]">
       <div
@@ -35,7 +45,20 @@ const HomePage = () => {
       </div>
 
       {/* menu item show */}
-      <div className="px-5 md:px-32 lg:px-72 mt-5 md:mt-10">
+      <div className="px-5 md:px-32 lg:px-72 mt-5 md:mt-10 flex flex-col justify-center">
+        <form onSubmit={handleSearchForm}>
+          <input
+            type="text"
+            ref={searchInputRef}
+            className="p-1 w-72 mx-auto mb-3 rounded-tl-lg rounded-bl-lg"
+          />
+          <button
+            type="submit"
+            className="p-1 text-white bg-red-950 border border-red-950 rounded-tr-lg rounded-br-lg"
+          >
+            Search
+          </button>
+        </form>
         <div className="bg-white rounded-lg p-2 md:p-5">
           {/* if mock data is used , than map over only data instead of loaderData */}
           {loaderData.data.map((item) => (
@@ -48,10 +71,16 @@ const HomePage = () => {
 };
 
 export const loader = async ({ request }) => {
-  // const searchParams = new URL(request.url).searchParams;
-  // const limit = searchParams.get("limit");
-  // const page = searchParams.get("page");
-  const response = await fetch(`http://localhost:5000/v1/api/meal`);
+  const searchParams = new URL(request.url).searchParams;
+  const search = searchParams.get("search");
+  let link = "";
+  if (search) {
+    link = `http://localhost:5000/v1/api/meal?search=${search}`;
+  } else {
+    link = "http://localhost:5000/v1/api/meal";
+  }
+  console.log(link);
+  const response = await fetch(link);
   return response.json();
 };
 
