@@ -1,3 +1,4 @@
+import { jwtDecode } from "jwt-decode";
 import { redirect } from "react-router-dom";
 
 export function getTokenDuration() {
@@ -32,7 +33,11 @@ export function setAccessToken(token) {
   let expiration = new Date();
   expiration.setHours(expiration.getHours() + 1);
   localStorage.setItem("expiration", expiration.toISOString());
-  console.log("New access token:", token);
+}
+
+export function removeAccessToken() {
+  localStorage.removeItem("token");
+  localStorage.removeItem("expiration");
 }
 
 export function getAuthToken() {
@@ -50,8 +55,12 @@ export function getAuthToken() {
   return token;
 }
 
-export function loadToken() {
-  return getAuthToken();
+export function decodeToken() {
+  const token = getAuthToken();
+  if (token) {
+    return jwtDecode(token);
+  }
+  return;
 }
 
 // export function checkAuthLoader() {

@@ -1,6 +1,6 @@
 import React from "react";
 import AuthForm from "../components/AuthForm";
-import { Link, redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { setAccessToken } from "../util/auth";
 
 const AuthPage = () => {

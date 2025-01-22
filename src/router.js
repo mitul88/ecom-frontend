@@ -16,6 +16,9 @@ export const router = createBrowserRouter([
     ),
     errorElement: <h2>Error Loading page</h2>,
     id: "root",
+    loader: () => import("./util/auth").then((module) => module.decodeToken()),
+    action: (meta) =>
+      import("./layout/MasterLayout").then((module) => module.action(meta)),
     children: [
       {
         index: true,
