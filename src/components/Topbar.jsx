@@ -1,11 +1,12 @@
 import React from "react";
 import CartButton from "../UI/CartButton";
-import { Form, Link, useActionData, useLoaderData } from "react-router-dom";
+import { Form, Link, useActionData } from "react-router-dom";
 import { MdLogout } from "react-icons/md";
+import { decodeToken } from "../util/auth";
 
 const Topbar = () => {
-  const data = useLoaderData("root");
   useActionData();
+  const data = decodeToken();
 
   return (
     <header className="w-full h-20 px-10 py-3 flex items-center justify-between bg-red-900 ">

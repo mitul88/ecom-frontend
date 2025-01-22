@@ -16,7 +16,6 @@ export const router = createBrowserRouter([
     ),
     errorElement: <h2>Error Loading page</h2>,
     id: "root",
-    loader: () => import("./util/auth").then((module) => module.decodeToken()),
     action: (meta) =>
       import("./layout/MasterLayout").then((module) => module.action(meta)),
     children: [
@@ -27,6 +26,7 @@ export const router = createBrowserRouter([
             <HomePage />
           </Suspense>
         ),
+        id: "home",
         loader: (meta) =>
           import("./screen/HomePage").then((module) => module.loader(meta)),
       },

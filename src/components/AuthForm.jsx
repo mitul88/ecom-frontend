@@ -1,14 +1,7 @@
 import React from "react";
-import {
-  Form,
-  Link,
-  useActionData,
-  useNavigation,
-  useSearchParams,
-} from "react-router-dom";
+import { Form, Link, useNavigation, useSearchParams } from "react-router-dom";
 
 const AuthForm = () => {
-  const data = useActionData();
   const [searchParams] = useSearchParams();
   const navigation = useNavigation();
 
