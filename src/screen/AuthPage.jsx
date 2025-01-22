@@ -2,6 +2,7 @@ import React from "react";
 import AuthForm from "../components/AuthForm";
 import { Link } from "react-router-dom";
 import { setAccessToken } from "../util/auth";
+import { BASE_URL } from "../util/http";
 
 const AuthPage = () => {
   return (
@@ -37,7 +38,7 @@ export const action = async ({ request }) => {
     authData.name = data.get("name");
   }
 
-  const response = await fetch(`http://localhost:5000/v1/api/auth/${mode}`, {
+  const response = await fetch(`${BASE_URL}/v1/api/auth/${mode}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

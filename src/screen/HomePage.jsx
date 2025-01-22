@@ -2,6 +2,7 @@ import React, { useMemo, useRef } from "react";
 import { menuItems } from "../mock/menu";
 import ItemCard from "../components/ItemCard";
 import { useLoaderData, useNavigate } from "react-router-dom";
+import { BASE_URL } from "../util/http";
 
 const HomePage = () => {
   // following fetches data from mock file
@@ -75,9 +76,9 @@ export const loader = async ({ request }) => {
   const search = searchParams.get("search");
   let link = "";
   if (search) {
-    link = `http://localhost:5000/v1/api/meal?search=${search}`;
+    link = `${BASE_URL}/v1/api/meal?search=${search}`;
   } else {
-    link = "http://localhost:5000/v1/api/meal";
+    link = `${BASE_URL}/v1/api/meal`;
   }
   console.log(link);
   const response = await fetch(link);
