@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import CartItem from "../components/CartItem";
 import { useNavigate, Link } from "react-router-dom";
+import CartContext from "../store/cart-context";
 
 const CartPage = () => {
   const navigate = useNavigate();
@@ -8,17 +9,40 @@ const CartPage = () => {
     e.preventDefault();
     navigate(-1);
   };
+
+  const cartCtx = useContext(CartContext);
+  const totalAmount = `${cartCtx.totalAmount.toFixed(2)}`;
+  const cartItemRemoveHandler = (id) => {
+    cartCtx.removeItem(id);
+  };
+  const cartItemAddHandler = (item) => {
+    cartCtx.addItem({ ...item, amount: 1 });
+  };
+
   return (
     <div className="min-h-[calc(100vh-9.25rem)] pt-5">
       <div className="w-96 md:w-1/3 min-h-[calc(100vh-9.5rem)] bg-white p-5 mx-auto flex flex-col justify-between">
-        <h2 className="text-xl text-red-950 font-bold bg-gray-100 p-2 mb-2">
-          Cart
-        </h2>
-        <div className="w-full flex flex-col items-center">
-          <CartItem />
-          <CartItem />
-          <CartItem />
-          <CartItem />
+        <div>
+          <h2 className="text-xl text-red-950 font-bold bg-gray-100 p-2 mb-2">
+            Cart
+          </h2>
+          <div className="w-full flex flex-col items-start">
+            {cartCtx.items.length === 0 && (
+              <h3 className="text-center text-lg font-bold text-red-800">
+                Your cart is empty
+              </h3>
+            )}
+            {cartCtx.items.map((item) => (
+              <CartItem
+                key={item.id}
+                name={item.name}
+                amount={item.amount}
+                price={item.price}
+                onAdd={() => cartItemAddHandler(item)}
+                onRemove={() => cartItemRemoveHandler(item.id)}
+              />
+            ))}
+          </div>
         </div>
 
         <div className="bg-gray-100 p-1">
@@ -27,7 +51,7 @@ const CartPage = () => {
               Total Amount:
             </h3>
             <span className="text-lg md:text-3xl text-red-900 font-bold">
-              $55.00
+              ${totalAmount}
             </span>
           </div>
           <div className="w-full flex justify-end my-2">
@@ -39,12 +63,14 @@ const CartPage = () => {
               >
                 Go back
               </Link>
-              <Link
-                to="/cart/checkout"
-                className="px-2 py-1 bg-red-900 border border-red-900 text-white rounded-2xl"
-              >
-                Checkout
-              </Link>
+              {cartCtx.items.length > 0 && (
+                <Link
+                  to="/cart/checkout"
+                  className="px-2 py-1 bg-red-900 border border-red-900 text-white rounded-2xl"
+                >
+                  Checkout
+                </Link>
+              )}
             </div>
           </div>
         </div>
