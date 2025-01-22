@@ -1,9 +1,14 @@
 import React, { useMemo } from "react";
-import ItemCard from "../components/ItemCard";
 import { menuItems } from "../mock/menu";
+import ItemCard from "../components/ItemCard";
+import { useLoaderData } from "react-router-dom";
 
 const HomePage = () => {
-  const data = useMemo(() => menuItems, []);
+  // following fetches data from mock file
+  // const data = useMemo(() => menuItems, []);
+
+  // fetch data from server
+  const loaderData = useLoaderData();
   return (
     <div className="min-h-[calc(100vh-5rem)]">
       <div
@@ -32,13 +37,22 @@ const HomePage = () => {
       {/* menu item show */}
       <div className="px-5 md:px-32 lg:px-72 mt-5 md:mt-10">
         <div className="bg-white rounded-lg p-2 md:p-5">
-          {data.map((item) => (
+          {/* if mock data is used , than map over only data instead of loaderData */}
+          {loaderData.data.map((item) => (
             <ItemCard item={item} key={item.id} />
           ))}
         </div>
       </div>
     </div>
   );
+};
+
+export const loader = async ({ request }) => {
+  // const searchParams = new URL(request.url).searchParams;
+  // const limit = searchParams.get("limit");
+  // const page = searchParams.get("page");
+  const response = await fetch(`http://localhost:5000/v1/api/meal`);
+  return response.json();
 };
 
 export default HomePage;

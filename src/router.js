@@ -15,6 +15,7 @@ export const router = createBrowserRouter([
       </Suspense>
     ),
     errorElement: <h2>Error Loading page</h2>,
+    id: "root",
     children: [
       {
         index: true,
@@ -23,6 +24,8 @@ export const router = createBrowserRouter([
             <HomePage />
           </Suspense>
         ),
+        loader: (meta) =>
+          import("./screen/HomePage").then((module) => module.loader(meta)),
       },
       {
         path: "/cart",
